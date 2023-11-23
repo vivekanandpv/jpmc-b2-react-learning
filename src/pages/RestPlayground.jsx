@@ -1,33 +1,14 @@
 import React from 'react';
 import axios from "axios";
 import {httpService} from "../http-service";
+import {RestContext} from "../App";
 
 const RestPlayground = (props) => {
-    const fragments = ['posts', 'comments', 'albums', 'photos', 'todos', 'users'];
-    const [statistics, setStatistics] = React.useState([]);
-
-    React.useEffect(() => {
-      const promises = fragments.map(f => {
-          console.log('request in component', f);
-          return httpService.get(f)
-              .then(r => {
-                  console.log('response in component', r);
-                  return {
-                      marker: f,
-                      count: r.data.length
-                  }
-              });
-      });
-
-      Promise.all(promises)
-          .then(s => setStatistics(_ => s))
-          .catch(e => console.log('Error', e));
-    }, []);
-
+    const contextValue = React.useContext(RestContext);
 
     return (
         <>
-            <h3>Playground</h3>
+            <h3>Playground <button className="btn btn-primary btn-sm" onClick={contextValue.fetchData}>Fetch Data</button></h3>
             <table className="table table-bordered table-sm">
                 <thead>
                 <tr>
@@ -40,7 +21,7 @@ const RestPlayground = (props) => {
                 </tr>
                 </thead>
                 <tbody>
-                {statistics.map((s, i) => (
+                {contextValue?.statistics.map((s, i) => (
                     <tr key={i}>
                         <td>{s.marker}</td>
                         <td>{s.count}</td>
