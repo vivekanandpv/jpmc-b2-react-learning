@@ -10,6 +10,7 @@ import StatePlayground from "./pages/StatePlayground";
 import Login from "./pages/Login";
 
 import {httpService} from "./http-service";
+import UpdateForm from "./pages/UpdateForm";
 
 export const RestContext = React.createContext();
 
@@ -54,6 +55,7 @@ const App = (props) => {
                         <Route exact path='/playground' component={RestPlayground} />
                         <Route exact path='/state' component={StatePlayground} />
                         <Route exact path='/login' component={Login} />
+                        <Route exact path='/update-form' component={UpdateForm} />
                         <Route exact path='/contact/:id' component={Contact} />
                         <Route component={NotFound} />
                     </Switch>

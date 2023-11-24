@@ -42,6 +42,11 @@ const Navbar = (props) => {
                                     Login
                                 </NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink exact to='/update-form' className='nav-link'>
+                                    Update Form
+                                </NavLink>
+                            </li>
                         </ul>
                     </div>
                 </div>
