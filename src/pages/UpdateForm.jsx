@@ -11,7 +11,7 @@ const UpdateForm = (props) => {
         defaultValues: async () => {
             return await httpService.get('posts/55').then(r => r.data);
         },
-        mode: 'onSubmit',
+        mode: 'onChange',
     });
 
     const {
@@ -100,10 +100,14 @@ const UpdateForm = (props) => {
                         {...register('title', {
                             required: 'Title is required',
                             validate: {
-                                lettersOnly: (fv) => {
-                                    const regex = /^[A-Za-z ]*$/;
-                                    return regex.test(fv) || 'Title should only be letters';
-                                },
+                                // lettersOnly: (fv) => {
+                                //     const regex = /^[A-Za-z ]*$/;
+                                //     return regex.test(fv) || 'Title should only be letters';
+                                // },
+                                myAsyncValidator: async (fv) => {
+                                    const postObject = await httpService('posts/55').then(r => r.data);
+                                    return fv === postObject.title || 'This title is not acceptable'
+                                }
                             },
                         })}
                     />
